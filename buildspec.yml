@@ -1,0 +1,8 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - yarn install
+      - yarn decrypt --stage $STAGE --password "$SECRETS_PASSWORD"
+      - yarn deploy --stage $STAGE
