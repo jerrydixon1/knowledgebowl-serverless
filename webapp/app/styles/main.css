@@ -1,0 +1,365 @@
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding: 0;
+}
+
+body, p, div, section, input, textarea, label, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.navbar-brand {
+  font-family: 'Graduate', cursive;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.navbar-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+body {
+  background: #fffef2
+}
+.navbar.navbar-default {
+  background: #94291e;
+  margin: 0;
+  height: 62px;
+  z-index: 2;
+}
+a.navbar-brand {
+  color: white!important;
+}
+.navbar ul.navbar-nav > li > a:hover {
+  background: #94291e;
+  color: white;
+}
+
+.navbar ul.navbar-nav > li.active > a {
+  background: #94291e;
+  color: white;
+}
+
+.navbar ul.navbar-nav > li > a {
+  background: #94291e;
+  color: #c7c7c7;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: #fff;
+  background-color: #94291e;
+}
+.navbar-nav li {
+  margin-top: 5px;
+}
+
+form[name='ctrl.loginForm'] {
+  margin-top: 5em;
+}
+input.form-control {
+  box-shadow: none;
+  border-radius: 2px;
+  border-color: #e6e6e6;
+}
+input.form-control:focus {
+  box-shadow: none;
+  border-color: #b7b7b7;
+}
+
+.toast {
+  opacity: .95;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 820px;
+  }
+
+  .navbar .container {
+    max-width: 920px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.panel-default > .panel-heading {
+  background-color: #f7f5e5;
+}
+
+.form-group {
+  margin-bottom: 32px;
+}
+div[ng-message] {
+  position: absolute;
+}
+.table.table-hover tbody tr:hover {
+  cursor: pointer;
+}
+table .tablesort-sortable:hover {
+  background: #efefef;
+  cursor: pointer;
+}
+table .tablesort-asc,
+table .tablesort-desc {
+  background: #efefef;
+}
+table .tablesort-asc::after {
+  content: "\f0d8";
+  float: right;
+  margin-top: -1px;
+  font-family: FontAwesome;
+}
+table .tablesort-desc::after {
+  content: "\f0d7";
+  float: right;
+  margin-top: -1px;
+  font-family: FontAwesome;
+}
+
+.panel-heading .btn {
+  margin-top: -45px;
+}
+
+.panel-body.scrollable._450 {
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+#question-viewer {
+  height: 100vh;
+  margin-top: -93px;
+  padding-top: 92px;
+  position: relative;
+}
+@media(max-width: 1150px) {
+  #question-viewer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding-left: 250px;
+    padding-right: 100px;
+  }
+
+}
+
+#question-viewer .timer {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 5px;
+  left: 25px;
+  color: red;
+  font-weight: bold;
+}
+
+#question-viewer .question {
+  position: absolute;
+  top: 130px;
+  text-align: center;
+  left: 0;
+  right: 0;
+  font-size: 2.25em;
+}
+@media(max-width: 1480px) {
+  #question-viewer .question {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+}
+@media(max-width: 1150px) {
+  #question-viewer .question {
+    max-width: initial;
+    text-align: left;
+    position: relative;
+    margin: 0;
+    margin-top: -130px;
+  }
+}
+
+#question-viewer .controls {
+  text-align: center;
+  position: fixed;
+  bottom: 5em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  box-shadow: 10px 4px 15px black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#question-viewer input#font-size {
+  width: 50px;
+}
+
+#question-viewer .controls .btn {
+  font-size: 1.5em;
+}
+
+#question-viewer .controls > .font-size {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+#categories .dropdown-menu {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+
+/* Quiz styles (non-print) */
+#quiz {
+  position: relative;
+  padding: 50px;
+  margin: 0 auto 100px;
+  background: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0,
+  0, 0.2);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+#quiz .category {
+  text-align: center;
+  margin-bottom: 50px;
+  page-break-before: always;
+}
+#quiz section:first-child .category {
+  page-break-before: initial;
+}
+#quiz .question {
+  margin-bottom: 40px;
+  padding-left: 30px;
+  position: relative;
+  page-break-inside: avoid;
+}
+#quiz .question:last-child {
+  margin-bottom: 0;
+}
+#quiz .question::before {
+  content: attr(data-number);
+  position: absolute;
+  left: -10px;
+  font-weight: bold;
+  text-align: right;
+  width: 30px;
+}
+#quiz .answer {
+  display: none;
+}
+#quiz .showAnswers .answer {
+  display: block;
+}
+.controls .panel-body {
+  padding-top: 30px;
+}
+.controls .form-group {
+  margin-bottom: 10px;
+}
+
+form.ng-submitted .form-control.ng-invalid {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+form:not(.ng-submitted) div[ng-messages] {
+  display: none;
+}
+
+form.ng-submitted div[ng-messages] {
+  display: block;
+}
+
+section.question-meta {
+  background: white;
+  display: inline-block;
+  padding: 15px 25px;
+  position: fixed;
+  left: 25px;
+  box-shadow: 1px 1px 1px 1px grey;
+  width: 300px;
+}
+@media(max-width: 1325px) {
+  section.question-meta {
+    width: 200px;
+  }
+}
+
+section.question-meta > div {
+  padding-bottom: 20px;
+}
+.jumbotron {
+  background-color: #f3f1e1!important;
+}
+dir-pagination-controls + input.form-control.pull-right {
+  max-width: 250px;
+  margin-top: 20px;
+  border-radius: 100px;
+}
+div#main * {
+  text-align: initial;
+}
+.rte-controls {
+  margin-top: 15px;
+}

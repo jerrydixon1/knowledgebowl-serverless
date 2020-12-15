@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css?family=Graduate|Montserrat" rel="stylesheet">
+    <script src="https://use.fontawesome.com/016ba44080.js"></script>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.css" />
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
+    <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/print.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="knowledgebowl">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation" bs-navbar>
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">Knowledge Bowl</a>
+          </div>
+
+          <div class="collapse navbar-collapse navbar-right" id="js-navbar-collapse" ng-controller="NavCtrl as ctrl">
+
+            <ul class="nav navbar-nav">
+
+              <li ng-show="$root.user" data-match-route="/practice"><a ng-href="/practice{{$root.runningCompetition ? '?1' : '' }}">Practice</a></li>
+              <li>
+                <a ng-href="/competition/run{{$root.runningCompetition ? '?1' : '' }}">Run competition</a>
+              </li>
+              <li ng-show="$root.user && $root.isAdmin">
+                <a href="" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false">
+                  Admin
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li data-match-route="/manage-users">
+                    <a href="/manage-users">Manage Users</a>
+                  </li>
+                  <li data-match-route="/manage-questions">
+                    <a href="/manage-questions">Manage Questions</a>
+                  </li>
+                  <li data-match-route="/manage-welcome-page">
+                    <a href="/manage-welcome-page">Edit Homepage</a>
+                  </li>
+                </ul>
+              </li>
+              <li ng-show="$root.user"><a ng-click="ctrl.logout()" href="">Logout</a></li>
+              <li ng-show="!$root.user" data-match-route="/login"><a href="/login">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+    <div ng-view=""></div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angularLocalStorage/dist/angularLocalStorage.min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
+    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+    <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.js"></script>
+    <script src="bower_components/timecircles/inc/TimeCircles.js"></script>
+    <script src="bower_components/rangy/rangy-core.js"></script>
+    <script src="bower_components/rangy/rangy-classapplier.js"></script>
+    <script src="bower_components/rangy/rangy-highlighter.js"></script>
+    <script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    <script src="bower_components/rangy/rangy-serializer.js"></script>
+    <script src="bower_components/rangy/rangy-textrange.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
+    <script src="bower_components/jszip/dist/jszip.js"></script>
+    <script src="bower_components/pptxgenjs/dist/pptxgen.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/angular-tablesort/js/angular-tablesort.js"></script>
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/components/competition-runner.js"></script>
+        <script src="scripts/directives/interface/kb-error-feedback.js"></script>
+        <script src="scripts/directives/interface/kb-question-modal.js"></script>
+        <script src="scripts/directives/interface/kb-category-modal.js"></script>
+        <script src="scripts/directives/interface/kb-edit-user.js"></script>
+        <script src="scripts/directives/validations/equal-to.js"></script>
+        <script src="scripts/directives/validations/number-range.js"></script>
+        <script src="scripts/services/authentication/authentication.service.js"></script>
+        <script src="scripts/services/api/api.category.js"></script>
+        <script src="scripts/services/api/api.question.js"></script>
+        <script src="scripts/services/api/api.customizablePage.js"></script>
+        <script src="scripts/services/api/api.auth.js"></script>
+        <script src="scripts/services/api/api.user.js"></script>
+        <script src="scripts/services/api/api.user.js"></script>
+        <script src="scripts/services/api/api.competition.js"></script>
+        <script src="scripts/services/api/api.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/forgot-password.js"></script>
+        <script src="scripts/controllers/forgot-email.js"></script>
+        <script src="scripts/controllers/reset-password.js"></script>
+        <script src="scripts/controllers/manage-users.js"></script>
+        <script src="scripts/controllers/manage-welcome-page.js"></script>
+        <script src="scripts/controllers/manage-questions.js"></script>
+        <script src="scripts/controllers/run-competition.js"></script>
+        <script src="scripts/controllers/practice-competition.js"></script>
+        <script src="scripts/controllers/practice.js"></script>
+        <script src="scripts/controllers/print-competition.js"></script>
+        <!-- endbuild -->
+
+    <div id="sound"></div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+.idea
+bower_components
+.vscode
+npm-debug.log
+.DS_Store
+config/development.json
+node_modules
+.env
+
+# secrets
+secrets-passwords.txt
+secrets.dev.yml
+secrets.test.yml
+secrets.production.yml
+secrets.prod.yml

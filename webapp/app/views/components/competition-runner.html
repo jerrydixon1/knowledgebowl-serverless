@@ -1,0 +1,36 @@
+<div id="question-viewer" ng-hide="ctrl.competitionOver">
+    <section class="question-meta">
+      <div><strong>Question {{ctrl.currentQuestionIdx+1}} of {{::ctrl.questions.length}}</strong></div>
+      <div>Category: <strong>{{ctrl.currentQuestion.category}}</strong></div>
+      <div>Point Value: <strong>{{ctrl.currentQuestion.point_value}}</strong></div>
+      <div class="timer" ng-show="ctrl.timerStarted">
+        {{ctrl.time}} seconds remaining
+      </div>
+      <div>
+        <a class="btn btn-primary" ng-href="/print-competition?idList={{ctrl.questionIdStr}}" target="_blank">Print competition</a>
+      </div>
+      <div>
+        <button class="btn btn-success" ng-click="ctrl.downloadAsPowerpoint()">Download</button>
+      </div>
+    </section>
+  
+    <div class="question" ng-style="ctrl.calcFontStyle()">
+      <span ng-show="ctrl.showQuestion">{{ ctrl.currentQuestion.question }}</span>
+      <span ng-show="ctrl.showAnswer">{{ ctrl.currentQuestion.answer }}</span>
+    </div>
+    <div class="controls">
+      <div class="form-group font-size">
+        <label for="font-size">Font Size</label>
+        <input type="number" ng-model="ctrl.fontSize" id="font-size" name="font-size" min="1">
+      </div>
+      <button class="btn btn-default" ng-click="ctrl.previousQuestion()">Previous Question</button>
+      <button class="btn btn-primary" ng-click="ctrl.startTimer()" ng-show="!ctrl.timerStarted && !ctrl.timerStopped && ctrl.settings.timer !== 0">Start timer</button>
+      <button class="btn btn-primary" ng-click="ctrl.stopTimer()" ng-show="ctrl.timerStarted && !ctrl.timerStopped">Stop Timer</button>
+      <button class="btn btn-primary" ng-click="ctrl.revealAnswer()" ng-show="(ctrl.timerStopped && !ctrl.showAnswer) || ctrl.settings.timer === 0">Show Answer</button>
+      <button class="btn btn-primary" ng-click="ctrl.nextQuestion()">Next Question</button>
+    </div>
+  </div>
+  
+  <div id="competitionOver" ng-show="ctrl.competitionOver">
+    {{ ctrl.isPractice ? 'Practice' : 'Competition' }} over
+  </div>

@@ -1,0 +1,22 @@
+<style type="text/css" media="print">
+  @page {
+    size: auto;   /* auto is the initial value */
+    margin: 1.5cm 0; /* this affects the margin in the printer settings */
+  }
+</style>
+
+<section class="controls">
+  <button style="margin-bottom: 15px" class="btn btn-primary" type="button" ng-click="ctrl.print()">Print</button>
+</section>
+
+
+<div id="quiz" class="showAnswers" ng-hide="error || !ctrl.questions.length">
+  <div class="question" ng-repeat="question in ctrl.questions" data-number="{{::($index+1)}}.">
+    <p><strong style="color: blue">(Category: {{question.category}}, {{question.point_value}} points)</strong><br>{{::question.question}}</p>
+    <p class="answer"><em>{{::question.answer}}</em></p>
+  </div>
+</div>
+
+<div ng-show="error || !ctrl.questions.length">
+  <h2>An error occurred printing this competition.</h2>
+</div>

@@ -1,0 +1,48 @@
+<form name="ctrl.forgotEmailForm" novalidate ng-submit="ctrl.getEmails()">
+
+  <div class="row" ng-show="!ctrl.searchComplete">
+    <div class="form-group col-xs-12 col-sm-offset-3 col-sm-6">
+      <label for="firstName">Please enter your first name</label>
+      <input type="text" name="firstName" id="firstName" class="form-control" ng-model="ctrl.user.firstName" required>
+      <div ng-messages="ctrl.forgotEmailForm.firstName.$error">
+        <div ng-message="required">Required</div>
+      </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-offset-3 col-sm-6">
+      <label for="lastName">Please enter your last name</label>
+      <input type="text" name="lastName" id="lastName" class="form-control" ng-model="ctrl.user.lastName" required>
+      <div ng-messages="ctrl.forgotEmailForm.lastName.$error">
+        <div ng-message="required">Required</div>
+      </div>
+    </div>
+
+    <div class="form-group col-xs-12">
+      <button type="submit" class="btn btn-primary col-xs-12 col-sm-offset-5 col-sm-2">
+        Submit
+      </button>
+    </div>
+  </div>
+
+  <div class="row" ng-show="ctrl.emails.length">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 text-center">
+      <h4>Here is a list of all emails with that name. Please look through them and determine if any look like yours. If you still cannot find your email, please contact support.</h4>
+      <ul style="font-size: 1.25em; font-weight: bold">
+        <li style="list-style: none" ng-repeat="email in ctrl.emails">{{email}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" ng-show="ctrl.searchComplete && !ctrl.emails.length && !ctrl.searchError">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 text-center">
+      <h3>No emails found with that first and last name. If you believe this is an error, please contact support.</h3>
+    </div>
+  </div>
+
+  <div class="row" ng-show="ctrl.searchError">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 text-center">
+      <h3>An error occurred while attempting to search for emails with that name. Please try again.</h3>
+    </div>
+  </div>
+
+</form>

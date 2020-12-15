@@ -1,0 +1,73 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h3>Manage Categories</h3>
+    <button type="button" class="btn btn-success pull-right" kb-category-modal category="category">Add new</button>
+  </div>
+  <div class="panel-body scrollable _450">
+    <!-- Table -->
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Category</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="category in ctrl.categories" kb-category-modal category="category">
+        <td>{{::category.category}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <h3>Manage Questions</h3>
+    <button type="button" class="btn btn-success pull-right" kb-question-modal categories="ctrl.categories">Add new</button>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- Table -->
+        <dir-pagination-controls on-page-change="ctrl.questionsPageChanged(newPageNumber)"></dir-pagination-controls>
+        <input type="text" class="form-control pull-right" ng-model="ctrl.search" ng-change="ctrl.doSearch()" placeholder="Search by question or answer" ng-model-options="{debounce: 350}">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>
+              Question<br>
+              <input type="text" class="form-control" ng-model="ctrl.filters.question" ng-change="ctrl.doSearch()">
+            </th>
+            <th>
+              Answer<br>
+              <input type="text" class="form-control" ng-model="ctrl.filters.answer" ng-change="ctrl.doSearch()">
+            </th>
+            <th>Point Value<br>&nbsp;</th>
+            <th>
+              Category<br>
+              <select class="form-control" ng-model="ctrl.filters.category_id" ng-change="ctrl.doSearch()">
+                <option value="">Filter by category</option>
+                <option ng-repeat="category in ctrl.categories" value="{{category.id}}">{{category.category}}</option>
+              </select>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr dir-paginate="question in ctrl.questions | itemsPerPage: 25" total-items="ctrl.pagination.questions.rowCount" current-page="ctrl.pagination.questions.page" kb-question-modal question="question" categories="ctrl.categories">
+            <td>{{::question.question}}</td>
+            <td>{{::question.answer}}</td>
+            <td>{{::question.point_value}}</td>
+            <td>{{::question.category}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</div>

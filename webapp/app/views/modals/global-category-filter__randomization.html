@@ -1,0 +1,29 @@
+<div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form name="ctrl.globalCategoryForm__randomization" ng-submit="ctrl.applyRandomization()" novalidate kb-error-feedback>
+          <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="ctrl.cancel()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Global filters: randomize</h4>
+          </div>
+          <div class="modal-body clearfix">
+            <p>Select the number of random questions you want</p>
+  
+            <rzslider
+              rz-slider-model="ctrl.amount"
+              rz-slider-options="{floor: ctrl.questionRange.min, ceil: ctrl.questionRange.max}"></rzslider>
+  
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Apply</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div>
+  </div>
+  

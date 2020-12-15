@@ -1,0 +1,53 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form name="ctrl.editUserForm" ng-submit="ctrl.editUser($event)" novalidate kb-error-feedback>
+        <input type="hidden" ng-model="ctrl.user.id">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="ctrl.close()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>
+        <div class="modal-body clearfix">
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="last_name">Email</label>
+              <input class="form-control" type="email" ng-model="ctrl.user.username" id="username" name="username" required>
+              <div ng-messages="ctrl.editUserForm.username.$error" ng-show="ctrl.editUserForm.$submitted">
+                <div ng-message="required">Required</div>
+                <div ng-message="email">Invalid email address</div>
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="first_name">First Name</label>
+              <input class="form-control" type="text" ng-model="ctrl.user.first_name" id="first_name" name="first_name" required>
+              <div ng-messages="ctrl.editUserForm.first_name.$error">
+                <div ng-message="required">Required</div>
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="last_name">Last Name</label>
+              <input class="form-control" type="text" ng-model="ctrl.user.last_name" id="last_name" name="last_name" required>
+              <div ng-messages="ctrl.editUserForm.last_name.$error">
+                <div ng-message="required">Required</div>
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="role">Role Level</label>
+              <select class="form-control" name="role" ng-model="ctrl.user.role" id="role" name="role" required>
+                <option value="">Select a Role</option>
+                <option value="USER">Regular User</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+              <div ng-messages="ctrl.editUserForm.user_role.$error">
+                <div ng-message="required">Required</div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="ctrl.close()">Close</button>
+          <button type="button" class="btn btn-danger" ng-click="ctrl.deleteUser()" ng-disabled="ctrl.editingUser">Delete User</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="ctrl.editingUser">Save changes</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div>
+</div>

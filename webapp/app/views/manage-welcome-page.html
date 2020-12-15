@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Edit Welcome Page</h1>
+    <text-angular ng-model="ctrl.welcomeHtml"></text-angular>
+    <div class="rte-controls">
+      <button class="btn btn-primary" type="button" ng-click="ctrl.save()" ng-disabled="ctrl.saving">Save</button>
+      <button class="btn btn-default" type="button" ng-click="ctrl.reset()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Preview:</h2>
+    <div class="jumbotron" id="main">
+      <div ng-bind-html="ctrl.welcomeHtml"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form name="ctrl.categoryForm" ng-submit="ctrl.save($event)" novalidate kb-error-feedback>
+        <input type="hidden" ng-model="ctrl.category.id">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="ctrl.close()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{{ ctrl.category.id ? 'Edit' : 'Add' }} Category</h4>
+        </div>
+        <div class="modal-body clearfix">
+          <div class="form-group col-xs-12">
+            <label for="category">Category</label>
+            <input class="form-control" type="text" ng-model="ctrl.category.category" id="category" name="category" required>
+            <div ng-messages="ctrl.categoryForm.category.$error" ng-show="ctrl.categoryForm.$submitted">
+              <div ng-message="required">Required</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-default" ng-click="ctrl.close()">Close</button>
+              <button type="button" class="btn btn-danger" ng-click="ctrl.deleteCategory()" ng-disabled="ctrl.saving">Delete Category</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="ctrl.saving">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div>
+</div>

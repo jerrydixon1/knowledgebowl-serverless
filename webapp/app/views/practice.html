@@ -1,0 +1,115 @@
+<style type="text/css" media="print">
+  @page {
+    size: auto;   /* auto is the initial value */
+    margin: 1.5cm 0; /* this affects the margin in the printer settings */
+  }
+</style>
+
+<div ng-if="ctrl.runningCompetition">
+  <competition-runner questions="ctrl.competitionQuestions" timer-amount="ctrl.competitionTimerAmount" is-practice="true"></competition-runner>
+</div>
+
+<div ng-if="!ctrl.runningCompetition">
+  <section class="controls">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Practice</h3>
+        </div>
+        <div class="panel-body">
+          <h4>Categories</h4>
+          <div class="form-group col-sm-6">
+            <multiselect id="categories-select" ng-model="ctrl.selectedCategories" options="ctrl.availableCategories" show-select-all="true" show-unselect-all="true" id-prop="id" display-prop="category"></multiselect>
+          </div>
+          <div class="form-group col-sm-6">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="ctrl.showAnswersForAll" ng-click="ctrl.toggleShowAllAnswerInput()"> Show/Hide answers for all categories
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="ctrl.showCategoriesWithQuestion" ng-click="ctrl.toggleShowAllAnswerInput()"> Show category for each question
+              </label>
+            </div>
+          </div>
+          
+          <div ng-show="ctrl.selectedCategories.length">
+            <div class="row">
+              <div class="col-xs-12">
+                  <hr>
+              </div>
+            </div>
+            <h4>Actions</h4>
+            <div class="col-xs-12 form-group">
+              <button type="button" class="btn btn-primary" ng-click="ctrl.runCompetition()">
+                Run practice competition
+              </button>
+              <button type="button" class="btn btn-success" ng-show="ctrl.selectedCategories.length" ng-click="ctrl.printQuiz()">
+                Print quiz
+              </button>
+            </div>
+          </div>
+          
+          <div class="advanced col-xs-12" ng-show="ctrl.selectedCategories.length">
+            <div class="row">
+              <hr>
+              <h4>Selected questions</h4>
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-default btn-sm" ng-click="ctrl.globalFilterModal()">
+                  <i class="fa fa-globe"></i> Global filters{{ ctrl.globalFilters ? ': ' : '' }}
+                  <span ng-show="ctrl.globalFilters">
+                    <span ng-show="ctrl.globalFilters.range && !ctrl.globalFilters.randomize">
+                      questions {{ ctrl.globalFilters.range.min }}-{{ ctrl.globalFilters.range.max }}
+                    </span>
+                    <span ng-show="ctrl.globalFilters.randomize">
+                      random {{ ctrl.globalFilters.randomize }} {{ ctrl.globalFilters.range ? ' from questions ' + ctrl.globalFilters.range.min + '-' + ctrl.globalFilters.range.max : 'questions' }}
+                    </span>
+                  </span>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="ctrl.clearAllFilters()">Clear all filters</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Questions selected</th>
+                      <th>Show answers</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(category, questionArr) in ctrl.questionMap" ng-if="ctrl.selectedCategories.indexOf(category) !== -1">
+                      <td>{{category}}</td>
+                      <td>{{ctrl.questionsSelected[category]}}</td>
+                      <td>
+                        <input type="checkbox" ng-model="ctrl.showAnswers[category]" ng-change="ctrl.showAnswerChanged()">
+                      </td>
+                      <td>
+                        <a href="#" class="btn btn-default btn-sm" ng-click="ctrl.advancedFilterModal(category)">Filter questions</a>
+                        <a href="#" class="btn btn-danger btn-sm"  ng-click="ctrl.clearFilters(category)">Clear filters</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    <div id="quiz" ng-show="ctrl.selectedCategories.length">
+      <section ng-class="{showAnswers: ctrl.showAnswers[category]}" ng-repeat="(category, questionArr) in ctrl.questionMap" ng-if="ctrl.selectedCategories.indexOf(category) !== -1">
+        <h2 class="category">{{::category}}</h2>
+        <div class="question" ng-repeat="question in questionArr" data-number="{{::($index+1)}}." ng-show="question.show">
+          <p>{{ctrl.showCategoriesWithQuestion ? '[' + category + ']' : ''}} {{::question.question}}</p>
+          <p class="answer"><em>{{::question.answer}}</em></p>
+        </div>
+      </section>
+    </div>
+</div>
+

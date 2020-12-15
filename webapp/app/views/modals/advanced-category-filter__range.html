@@ -1,0 +1,56 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form name="ctrl.advancedCategoryForm__range" ng-submit="ctrl.applyRange()" novalidate kb-error-feedback>
+        <input type="hidden" ng-model="ctrl.category.id">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="ctrl.close()"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Filter {{ctrl.category}} category: select range</h4>
+        </div>
+        <div class="modal-body clearfix">
+          max possible: {{ctrl.maxPossibleResults}}
+          <p>Select a range of questions to select</p>
+
+          <input type="hidden" ng-model="ctrl.range.min" ng-change="ctrl.updateMaxPossibleResults()" name="minSelection">
+          <input type="hidden" ng-model="ctrl.range.max" ng-change="ctrl.updateMaxPossibleResults()" name="maxSelection">
+
+          <rzslider
+            rz-slider-model="ctrl.range.min"
+            rz-slider-high="ctrl.range.max"
+            rz-slider-options="ctrl.range.options"></rzslider>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="ctrl.randomizeResults"> Randomize results
+            </label>
+          </div>
+
+          <div uib-collapse="!ctrl.randomizeResults">
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="control-label" for="numQuestions">
+                  Number of questions to randomly select
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <input number-range min="ctrl.range.options.floor" max="ctrl.maxPossibleResults" class="form-control" type="number" ng-model="ctrl.numQuestions" name="numQuestions" id="numQuestions">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div>
+</div>

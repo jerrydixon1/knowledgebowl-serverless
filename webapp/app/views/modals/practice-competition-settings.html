@@ -1,0 +1,31 @@
+
+
+  <div class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form name="ctrl.practiceCompetitionSettingsForm" ng-submit="ctrl.submit()" novalidate kb-error-feedback>
+            <input type="hidden" ng-model="ctrl.user.id">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" ng-click="ctrl.cancel()"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Practice competition</h4>
+            </div>
+            <div class="modal-body clearfix">
+              <p>Enter a timer amount for each question.</p>
+              <div class="form-group col-xs-12 col-sm-6">
+                <label for="timer">Timer amount</label> 
+                <input class="form-control" type="number" ng-model="ctrl.timerAmount" id="timer" min="1" name="timer" required>
+                <div ng-messages="ctrl.editUserForm.username.$error" ng-show="ctrl.editUserForm.$submitted">
+                  <div ng-message="required">Required</div>
+                  <div ng-message="min">Timer must be at least 1 second</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Close</button>
+              <button type="submit" class="btn btn-primary">Start</button>
+            </div>
+          </form>
+        </div><!-- /.modal-content -->
+      </div>
+    </div>
+    

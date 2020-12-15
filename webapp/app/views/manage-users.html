@@ -1,0 +1,80 @@
+<div class="panel panel-default panel-form">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h3>Add New User</h3></div>
+  <div class="panel-body">
+    <div class="row">
+      <form name="ctrl.addUserForm" ng-submit="ctrl.addUser($event)" novalidate kb-error-feedback>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-class="{'has-error': ctrl.showError('addUserForm.username')}">
+          <label for="last_name">Email</label>
+          <input class="form-control" type="email" ng-model="ctrl.newUser.username" id="username" name="username" required>
+          <div ng-messages="ctrl.addUserForm.username.$error" ng-show="ctrl.addUserForm.$submitted">
+            <div ng-message="required">Required</div>
+            <div ng-message="email">Invalid email address</div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <label for="first_name">First Name</label>
+          <input class="form-control" type="text" ng-model="ctrl.newUser.first_name" id="first_name" name="first_name" required>
+          <div ng-messages="ctrl.addUserForm.first_name.$error">
+            <div ng-message="required">Required</div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <label for="last_name">Last Name</label>
+          <input class="form-control" type="text" ng-model="ctrl.newUser.last_name" id="last_name" name="last_name" required>
+          <div ng-messages="ctrl.addUserForm.last_name.$error">
+            <div ng-message="required">Required</div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <label for="role">Role Level</label>
+          <select class="form-control" name="user_role" ng-model="ctrl.newUser.role" id="role" name="role" required>
+            <option value="">Select a Role</option>
+            <option value="USER">Regular User</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+          <div ng-messages="ctrl.addUserForm.user_role.$error">
+            <div ng-message="required">Required</div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <button class="btn btn-primary" type="submit" ng-disabled="ctrl.savingUser">Add User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h3>Manage Users</h3></div>
+  <div class="panel-body">
+    <p>Use the table below to manage existing users.</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table table-hover" ts-wrapper>
+    <thead>
+    <tr>
+      <th ts-criteria="last_name">Name</th>
+      <th ts-criteria="username">Email</th>
+      <th ts-criteria="role">Role Level</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in ctrl.users track by user.id" kb-edit-user user="user" ts-repeat ng-show="user.first_name">
+      <td>{{::user.first_name}} {{::user.last_name}}</td>
+      <td>{{::user.username}}</td>
+      <td>{{::(user.role === 'USER' ? 'Regular User' : 'Admin')}}</td>
+      <td>
+        <toggle ng-model="user.active" on="Yes" off="No" size="btn-xs" ng-change="ctrl.toggleActive(user)"></toggle>
+      </td>
+      <td>
+        <button ng-disabled="ctrl.resendingCreationEmail" ng-click="ctrl.resendUserCreationLink(user)" class="btn btn-sm btn-default">Resend creation email</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

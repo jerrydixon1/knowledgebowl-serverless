@@ -1,0 +1,44 @@
+<div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form name="ctrl.globalCategoryForm" ng-submit="ctrl.applyFilters()" novalidate kb-error-feedback>
+          <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="ctrl.cancel()"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Global filters</h4>
+          </div>
+          <div class="modal-body clearfix">
+            <div ng-show="!ctrl.globalFilters">
+              <p>Use the options below to apply a range or randomize all questions.</p>
+              <div>
+                <button type="button" class="btn btn-default" ng-click="ctrl.selectRange()">Select range</button>
+                <button type="button" class="btn btn-default" ng-click="ctrl.selectRandomization()">Randomize all questions</button>
+                <button type="submit" class="btn btn-primary">Apply</button>
+              </div>
+            </div>
+            <div ng-show="ctrl.globalFilters">
+              <div ng-show="ctrl.globalFilters.range && !ctrl.globalFilters.randomize">
+                Selecting questions {{ ctrl.globalFilters.range.min }} - {{ ctrl.globalFilters.range.max }}
+              </div>
+              <div ng-show="ctrl.globalFilters.randomize">
+                Selecting {{ ctrl.globalFilters.randomize }} random questions{{ ctrl.globalFilters.range ? ' from questions ' + ctrl.globalFilters.range.min + ' - ' + ctrl.globalFilters.range.max : '.' }}
+              </div>
+              <a href="#" ng-click="ctrl.globalFilters = undefined">
+                <strong>
+                  Undo
+                </strong>
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Apply</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div>
+  </div>
+  

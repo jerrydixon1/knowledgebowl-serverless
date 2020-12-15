@@ -1,0 +1,48 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "globals": {
+    "$": true,
+    "alert": true,
+    "Common": true,
+    "document": true,
+    "Home": true,
+    "mixpanel": true,
+    "navigator": true,
+    "window": true,
+    "angular": true,
+    "moment": true,
+    "_": true,
+    "Chartist": true,
+    "fbq": true
+  }
+}
