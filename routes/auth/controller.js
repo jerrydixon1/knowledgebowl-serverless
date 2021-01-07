@@ -1,11 +1,7 @@
 'use strict';
 
-// Configs
-const jwtSecret = process.env.JWT_SECRET;
-const baseUrl = process.env.BASE_URL;
-
 // NPM modules
-const mailgun = require('services/mailgun');
+const EmailService = require('services/email');
 const jwt = require('jwt-simple');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
@@ -30,7 +26,7 @@ class AuthController {
         console.log('logging in...')
       if (isValidPassword) {
         console.log('valid password...')
-        const token = jwt.encode(user, jwtSecret);
+        const token = jwt.encode(user, process.env.JWT_SECRET);
         response.json({
           success: true,
           token: `JWT ${token}`,
@@ -55,22 +51,28 @@ class AuthController {
    */
   static async resendUserCreationLink(request, response) {
     try {
+      console.log('Resending user creation link')
       let user = request.pre.user;
+      console.log('here1')
       const passwordHash = crypto.randomBytes(64).toString('hex');
+      console.log('here2')
       const passwordResetExpiration = 1000 * 60 * 24 * 40000;
-      user = user.save({
+      console.log('here3')
+      user = await user.save({
         password_reset_token: passwordHash,
         password_reset_expiration: passwordResetExpiration
       }, {
         method: 'update',
         patch: true
       });
-      mailgun.sendEmail({
+      console.log('here4')
+      await EmailService.sendEmail({
         subject: 'Knowledge Bowl account created',
         to: user.get('username'),
         from: 'support@knowledgebowlcbiohio.com',
-        text: `Welcome to the Knowledge bowl app! Please click here to reset your password and login: ${baseUrl}/reset-password/${passwordHash}`
+        text: `Welcome to the Knowledge bowl app! Please click here to reset your password and login: ${process.env.BASE_URL}/reset-password/${passwordHash}`
       });
+      console.log('here5')
       response.json(user);
     } catch (err) {
       console.log(err);
@@ -104,12 +106,12 @@ class AuthController {
         active: true,
         password_reset_token: passwordHash,
         password_reset_expiration: passwordResetExpiration
-      }).save().then(user => {
-        mailgun.sendEmail({
+      }).save().then(async user => {
+        await EmailService.sendEmail({
           subject: 'Knowledge Bowl account created',
           to: username,
           from: 'support@knowledgebowlcbiohio.com',
-          text: `Welcome to the Knowledge bowl app! Please click here to reset your password and login: ${baseUrl}/reset-password/${passwordHash}`
+          text: `Welcome to the Knowledge bowl app! Please click here to reset your password and login: ${process.env.BASE_URL}/reset-password/${passwordHash}`
         });
         response.json(user);
       }).catch(err => {
@@ -142,12 +144,13 @@ class AuthController {
         method: 'update',
         patch: true
       });
-      await mailgun.sendEmail({
+      await EmailService.sendEmail({
         subject: 'Knowledge Bowl password reset instructions',
         to: user.get('username'),
         from: 'support@knowledgebowlcbiohio.com',
-        text: `You have sent a request to reset your password. Please navigate to this URL and fill out the form in order to reset it: ${baseUrl}/reset-password/${passwordHash}`
+        text: `You have sent a request to reset your password. Please navigate to this URL and fill out the form in order to reset it: ${process.env.BASE_URL}/reset-password/${passwordHash}`
       });
+      console.log('Forgot password sent successfully')
       response.json(user);
     }  catch (err) {
       console.error('Error occurred for forgot password: ', err);

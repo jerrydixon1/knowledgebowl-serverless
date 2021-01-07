@@ -14,12 +14,15 @@
         "ENVIRONMENT": "dev",
         "BASE_URL": "http://knowledgebowlcbiohio.com",
         "DB_CLIENT": "pg",
-        "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl",
+        "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl_dev",
         "MAILGUN_API_KEY": "key-d2727486e77438a3cb066a4166a0ba57",
         "MAILGUN_DOMAIN": "knowledgebowlcbiohio.com",
         "MAILGUN_OVERRIDE_EMAIL": "false",
         "JWT_SECRET": "Kn0wlegeBOWL",
-        "SALT_ROUNDS": "10"
+        "SALT_ROUNDS": "10",
+        "API_REGION": {
+          "Ref": "AWS::Region"
+        }
       },
       "variableSyntax": "\\${([^{}:]+?(?:\\(|:)(?:[^:{}][^{}]*?)?)}",
       "versionFunctions": true,
@@ -102,83 +105,6 @@
               "LogGroupName": "/aws/lambda/knowledgebowl-dev-app"
             }
           },
-          "IamRoleLambdaExecution": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-              "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": [
-                        "lambda.amazonaws.com"
-                      ]
-                    },
-                    "Action": [
-                      "sts:AssumeRole"
-                    ]
-                  }
-                ]
-              },
-              "Policies": [
-                {
-                  "PolicyName": {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "knowledgebowl",
-                        "dev",
-                        "lambda"
-                      ]
-                    ]
-                  },
-                  "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:CreateLogStream",
-                          "logs:CreateLogGroup"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/knowledgebowl-dev*:*"
-                          }
-                        ]
-                      },
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:PutLogEvents"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/knowledgebowl-dev*:*:*"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "Path": "/",
-              "RoleName": {
-                "Fn::Join": [
-                  "-",
-                  [
-                    "knowledgebowl",
-                    "dev",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    "lambdaRole"
-                  ]
-                ]
-              }
-            }
-          },
           "AppLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -186,7 +112,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/knowledgebowl/dev/1607581465391-2020-12-10T06:24:25.391Z/knowledgebowl.zip"
+                "S3Key": "serverless/knowledgebowl/dev/1608134005969-2020-12-16T15:53:25.969Z/knowledgebowl.zip"
               },
               "Handler": "app.handler",
               "Runtime": "nodejs12.x",
@@ -198,33 +124,37 @@
                   "ENVIRONMENT": "dev",
                   "BASE_URL": "http://knowledgebowlcbiohio.com",
                   "DB_CLIENT": "pg",
-                  "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl",
+                  "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl_dev",
                   "MAILGUN_API_KEY": "key-d2727486e77438a3cb066a4166a0ba57",
                   "MAILGUN_DOMAIN": "knowledgebowlcbiohio.com",
                   "MAILGUN_OVERRIDE_EMAIL": "false",
                   "JWT_SECRET": "Kn0wlegeBOWL",
-                  "SALT_ROUNDS": "10"
+                  "SALT_ROUNDS": "10",
+                  "API_REGION": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"API_REGION\"]"
+                  }
                 }
               },
               "Role": {
                 "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
+                  "lambdaExecutionRole",
                   "Arn"
                 ]
               }
             },
             "DependsOn": [
-              "AppLogGroup"
+              "AppLogGroup",
+              "lambdaExecutionRole"
             ]
           },
-          "AppLambdaVersionqrhdgCTb90VImawaGVTNucbPgLkFQbbbvxbaL62Ukew": {
+          "AppLambdaVersionmC5IM76F3Q9CtFWSSJsqyVNUbRwNTBMlPyfORmMA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "/j9ccyMmY6kgSQPQ5MEUtXkdx750QHUGxyhqvRf8jIU="
+              "CodeSha256": "sAvlUiIvFewTlzNl56Pb102VeC7Gq0UcsWMK5fZrGK8="
             }
           },
           "ApiGatewayRestApi": {
@@ -436,7 +366,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1607581425861": {
+          "ApiGatewayDeployment1608133953501": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -487,6 +417,80 @@
                 ]
               }
             }
+          },
+          "lambdaExecutionRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "Path": "/roles/default/",
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": "knowledgebowl-dev-lambdaDefaultPolicy",
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogGroup",
+                          "logs:CreateLogStream",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn:aws:logs",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              {
+                                "Ref": "AWS::AccountId"
+                              },
+                              "log-group:/aws/lambda/*:*:*"
+                            ]
+                          ]
+                        }
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "ses:SendEmail"
+                        ],
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn:aws:ses",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              {
+                                "Ref": "AWS::AccountId"
+                              },
+                              "identity/*"
+                            ]
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           }
         },
         "Outputs": {
@@ -498,7 +502,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionqrhdgCTb90VImawaGVTNucbPgLkFQbbbvxbaL62Ukew"
+              "Ref": "AppLambdaVersionmC5IM76F3Q9CtFWSSJsqyVNUbRwNTBMlPyfORmMA"
             }
           },
           "ServiceEndpoint": {
@@ -615,7 +619,7 @@
         "ENVIRONMENT": "dev",
         "BASE_URL": "http://knowledgebowlcbiohio.com",
         "DB_CLIENT": "pg",
-        "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl",
+        "DB_CONNECTION": "postgres://jerrydixon1:Egaga12345!A!s2d3F$@knowledgebowl.cktxbvl1zqpb.us-east-1.rds.amazonaws.com/knowledgebowl_dev",
         "MAILGUN_API_KEY": "key-d2727486e77438a3cb066a4166a0ba57",
         "MAILGUN_DOMAIN": "knowledgebowlcbiohio.com",
         "MAILGUN_OVERRIDE_EMAIL": false,
@@ -631,6 +635,7 @@
     "functions": {
       "app": {
         "handler": "app.handler",
+        "role": "lambdaExecutionRole",
         "events": [
           {
             "http": {
@@ -691,8 +696,87 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionqrhdgCTb90VImawaGVTNucbPgLkFQbbbvxbaL62Ukew"
+        "versionLogicalId": "AppLambdaVersionmC5IM76F3Q9CtFWSSJsqyVNUbRwNTBMlPyfORmMA"
       }
+    },
+    "resources": {
+      "Resources": {
+        "lambdaExecutionRole": {
+          "Type": "AWS::IAM::Role",
+          "Properties": {
+            "Path": "/roles/default/",
+            "AssumeRolePolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": [
+                      "lambda.amazonaws.com"
+                    ]
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            },
+            "Policies": [
+              {
+                "PolicyName": "knowledgebowl-dev-lambdaDefaultPolicy",
+                "PolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "logs:CreateLogGroup",
+                        "logs:CreateLogStream",
+                        "logs:PutLogEvents"
+                      ],
+                      "Resource": {
+                        "Fn::Join": [
+                          ":",
+                          [
+                            "arn:aws:logs",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            "log-group:/aws/lambda/*:*:*"
+                          ]
+                        ]
+                      }
+                    },
+                    {
+                      "Effect": "Allow",
+                      "Action": [
+                        "ses:SendEmail"
+                      ],
+                      "Resource": {
+                        "Fn::Join": [
+                          ":",
+                          [
+                            "arn:aws:ses",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            "identity/*"
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yml",
@@ -712,13 +796,16 @@
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
       }
     },
     "isDashboardMonitoringPreconfigured": false,
     "artifact": "/Users/jerrydixon/Development/dixonlabs/knowledgebowl-serverless/.serverless/knowledgebowl.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/knowledgebowl/dev/1607581465391-2020-12-10T06:24:25.391Z",
+    "artifactDirectoryName": "serverless/knowledgebowl/dev/1608134005969-2020-12-16T15:53:25.969Z",
     "artifact": "knowledgebowl.zip"
   }
 }
